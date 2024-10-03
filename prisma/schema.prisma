@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model generos {
+  Id_Genero Int @id @default(autoincrement())
+  Nome String @unique
+  Filmes filmes[]
+}
+model filmes {
+  Id_Filme Int @id @default(autoincrement())
+  Titulo String
+  Ano Int
+  Lancamento DateTime
+  Diretor    String
+  Id_Genero     Int
+  genero       generos    @relation(fields: [Id_Genero], references: [Id_Genero])
+
+  // Validações
+  @@unique([Titulo, Lancamento, Diretor])  // Título e lançamento e diretor devem ser únicos juntos
+}
