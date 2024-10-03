@@ -11,7 +11,7 @@ export default function Home() {
 
   const fetchGeneros = async () => {
     try {
-      const res = await fetch('/api/genero'); // Certifique-se de que a rota está correta
+      const res = await fetch('/api/genero'); 
       const data = await res.json();
       if (data.message === "OK") {
         setGeneros(data.generos);
